@@ -33,7 +33,7 @@ jobs:
           context: .
           file: docker/Dockerfile_prod
           push: true
-          tags:  ${{ secrets.DOCKER_USERNAME }}/microblog:${{ steps.meta.outputs.tags }}
+          tags:  isal20/microblog:${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
 
