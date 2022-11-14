@@ -148,6 +148,12 @@ exec-tests: test-unit test-integration
 
 
 
+# target: test-docker                         - Run tests in a docker container and display code coverage
+.PHONY: test
+test-docker: 
+	@docker-compose run --rm test 
+	
+
 # target: test                         - Run tests and display code coverage
 .PHONY: test
 test: validate exec-tests
