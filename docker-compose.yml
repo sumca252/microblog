@@ -1,0 +1,40 @@
+version: '3'
+networks:
+  microblog:
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: microblog
+      MYSQL_USER: microblog
+      MYSQL_PASSWORD: microblog
+    networks:
+      - microblog
+    volumes:
+      - microblog_db:/var/lib/mysql
+  prod:
+    image: isal20/microblog:1.0.0-prod
+    container_name: microblog-prod
+    restart: always
+    links:
+      - mysql
+    environment:
+      - DATABASE_URL=mysql+pymysql://microblog:microblog@mysql/microblog
+    networks:
+      - microblog
+    ports:
+      - 5000:5000
+    depends_on:
+      - mysql
+  test:
+    image: isal20/microblog:test
+    container_name: microblog-test
+    volumes:
+      - "./:/home/microblog/microblog"
+
+volumes:
+  microblog_db:

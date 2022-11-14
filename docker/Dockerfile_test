@@ -1,0 +1,21 @@
+FROM python:3.10-alpine
+RUN adduser -D microblog
+
+WORKDIR /home/microblog
+
+COPY requirements requirements
+
+RUN apk update && \
+    apk add --no-cache make=4.3-r0 && \
+    python -m venv .venv && \
+    .venv/bin/pip install -r requirements/test.txt 
+
+COPY boot_test.sh ./
+
+RUN chmod +x boot_test.sh && \
+    chown -R microblog:microblog ./
+
+ENV FLASK_APP microblog.py
+
+USER microblog
+ENTRYPOINT ["./boot_test.sh"]
