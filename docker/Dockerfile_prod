@@ -3,8 +3,6 @@ RUN adduser -D microblog
 
 WORKDIR /home/microblog
 
-COPY app app
-COPY migrations migrations
 COPY requirements requirements
 COPY requirements.txt microblog.py boot.sh ./
 
@@ -12,6 +10,8 @@ RUN python -m venv .venv && \
     . .venv/bin/activate && \
     pip install --no-cache-dir -r requirements.txt
 
+COPY app app
+COPY migrations migrations
 
 ENV FLASK_APP microblog.py
 
