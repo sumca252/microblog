@@ -1,0 +1,24 @@
+---
+- name: Get the latest image from docker hub
+  docker_image:
+    name: isal20/microblog:latest
+    source: pull
+    force_tag: yes
+    force_source: yes 
+    state: present
+  become: yes
+  become_user: root
+  register: docker_image
+
+- name: Run the container
+  docker_container:
+    name: microblog-prod
+    image: isal20/microblog:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "8000:5000"
+    env:
+      DATABASE_URL: "mysql+pymysql://microblog:microblog@{{ groups['database'][0] }}:3306/microblog"
+
+  

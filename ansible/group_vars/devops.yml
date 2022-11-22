@@ -1,0 +1,13 @@
+---
+root_user: root
+root_password: $6$CrkZZnQnSyTAIWXc$UPw1aWSF68FmR6VTvw25YtHHOd66XzRAOdrbKFz.uZlf3UvAYRsZebqkPqDXyPZMTgDMlb5HMw1J85AWoPx8g/
+
+server_user: deploy
+server_user_password: $6$CrkZZnQnSyTAIWXc$UPw1aWSF68FmR6VTvw25YtHHOd66XzRAOdrbKFz.uZlf3UvAYRsZebqkPqDXyPZMTgDMlb5HMw1J85AWoPx8g/
+
+server_user_groups: 
+  - sudo  
+
+public_ssh_key_path: 
+  - ~/.ssh/azure.pub
+

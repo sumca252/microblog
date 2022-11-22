@@ -1,0 +1,10 @@
+---
+- name: Copy periodical updates
+  copy:
+      src: files/10periodic
+      dest: /etc/apt/apt.conf.d/10periodic
+      
+- name: Copy unattended upgrades config
+  copy:
+      src: files/50unattended-upgrades
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
