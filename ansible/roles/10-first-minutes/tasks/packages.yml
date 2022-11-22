@@ -1,0 +1,7 @@
+---
+- name: Install packages
+  apt:
+      name: "{{ packages }}"
+      state: present  
+      update_cache: "True" 
+      cache_valid_time: 3600

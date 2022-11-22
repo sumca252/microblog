@@ -1,0 +1,8 @@
+---
+- name: Create user
+  user:
+      name: "{{ server_user }}"
+      password: "{{ server_user_password }}"
+      groups: "{{ server_user_groups }}"
+      shell: /bin/bash 
+      state: present

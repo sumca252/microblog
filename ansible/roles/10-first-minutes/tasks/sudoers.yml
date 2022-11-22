@@ -1,0 +1,8 @@
+---
+- name: add user to sudoers
+  lineinfile:
+      dest: /etc/sudoers
+      regexp: '{{ server_user }} ALL'
+      line: '{{ server_user }} ALL=(ALL) NOPASSWD:ALL'
+      state: present 
+      validate: 'visudo -cf %s'

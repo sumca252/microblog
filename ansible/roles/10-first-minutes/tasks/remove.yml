@@ -1,0 +1,8 @@
+---
+- name: Remove default user
+  remote_user: "{{ server_user }}"
+  user:
+      name: 'azureuser'
+      state: absent
+      force: yes
+      remove: yes
