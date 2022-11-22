@@ -1,0 +1,4 @@
+---
+- import_playbook: setup_database.yml
+- import_playbook: setup_appServer.yml
+- import_playbook: setup_loadBalancer.yml
