@@ -5,6 +5,7 @@ WORKDIR /home/microblog
 
 COPY requirements requirements
 COPY requirements.txt microblog.py boot.sh ./
+COPY gunicorn_config.py gunicorn_config.py
 
 RUN python -m venv .venv && \
     . .venv/bin/activate && \
@@ -20,5 +21,10 @@ RUN chmod +x boot.sh && \
 
 USER microblog
 
+ENV prometheus_multiproc_dir /tmp 
+
+ENV prometheus_multiproc_dir /tmp 
+
 EXPOSE 5000
+
 ENTRYPOINT ["./boot.sh"]
