@@ -1,0 +1,16 @@
+---
+- name: Run nginx exporter container
+  docker_container:
+      name: nginx_exporter
+      image: nginx/nginx-prometheus-exporter:0.4.2
+      state: started
+      restart_policy: unless-stopped
+      command:
+        - "-nginx.scrape-uri=https://isal.dev/metrics"
+        - "-nginx.retries=10"
+        - "-nginx.ssl-verify=false"
+        - "-web.telemetry-path=/prometheus"
+      ports:
+          - "9113:9113"
+
+ 
