@@ -1,0 +1,54 @@
+---
+- name: Copy grafana config file
+  template:
+    src: ./templates/grafana.ini
+    dest: /tmp/grafana.ini
+
+- name: Create grafana volume
+  docker_volume:
+    name: grafana_data
+
+- name: Run grafana container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:8.2.4
+    state: started
+    restart_policy: unless-stopped
+    network_mode: host
+    recreate: yes
+    volumes:
+      - /tmp/grafana.ini:/etc/grafana/grafana.ini
+      - grafana_data:/var/lib/grafana
+      
+- name: Create prometheus datasource
+  grafana_datasource:
+    name: prometheus
+    ds_type: prometheus
+    ds_url: "http://{{ groups['monitoring'][0] }}:9090"
+    grafana_url: "http://{{ groups['monitoring'][0] }}:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    
+- name: Import node exporter dashboard
+  grafana_dashboard:
+    grafana_url: "http://{{ groups['monitoring'][0] }}:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    dashboard_id: 1860
+    dashboard_revision: 22
+
+- name: Import nginx prometheus exporter dashboard
+  grafana_dashboard:
+    grafana_url: "http://{{ groups['monitoring'][0] }}:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    dashboard_id: 17452
+
+- name: Import flask exporter dashboard
+  grafana_dashboard:
+    grafana_url: "http://{{ groups['monitoring'][0] }}:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    path: "https://gist.githubusercontent.com/AndreasArne/433f902f9b986c301f2b2877454a581f/raw/4898bb2013b469cf74ace82d2d5aa39e073cb069/flaskdash.json"
+    
+  
