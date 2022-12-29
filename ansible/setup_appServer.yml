@@ -6,3 +6,5 @@
   roles:
       - setup_docker
       - setup_appServer
+      - node_exporter
+
