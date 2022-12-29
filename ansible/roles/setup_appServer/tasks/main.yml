@@ -1,7 +1,7 @@
 ---
 - name: Get the latest image from docker hub
   docker_image:
-    name: isal20/microblog:latest
+    name: isal20/microblog:flask-exporter
     source: pull
     force_tag: yes
     force_source: yes 
@@ -13,7 +13,7 @@
 - name: Run the container
   docker_container:
     name: microblog-prod
-    image: isal20/microblog:latest
+    image: isal20/microblog:flask-exporter
     state: started
     restart_policy: always
     ports:
@@ -21,4 +21,3 @@
     env:
       DATABASE_URL: "mysql+pymysql://microblog:microblog@{{ groups['database'][0] }}:3306/microblog"
 
-  

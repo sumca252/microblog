@@ -16,8 +16,9 @@ services:
       - microblog
     volumes:
       - microblog_db:/var/lib/mysql
+  
   prod:
-    image: isal20/microblog:1.0.0-prod
+    image: isal20/microblog:flask-exporter
     container_name: microblog-prod
     restart: always
     links:
@@ -30,6 +31,7 @@ services:
       - 5000:5000
     depends_on:
       - mysql
+  
   test:
     image: isal20/microblog:test
     container_name: microblog-test
