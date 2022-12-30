@@ -24,6 +24,8 @@ jobs:
         make install-dev
     - name: Test with make
       run: make test
+    - name: Test with bandit
+      run: make bandit
       
   build:
     needs: test
