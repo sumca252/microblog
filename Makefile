@@ -2,6 +2,7 @@
 #
 # Makefile for recipe static site generator
 #
+export PROMETHEUS_MULTIPROC_DIR=/tmp
 
 # ---------------------------------------------------------------------------
 #
