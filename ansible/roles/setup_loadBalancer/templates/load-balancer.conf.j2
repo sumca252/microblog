@@ -22,17 +22,26 @@ http {
        listen 443 ssl;
        server_name  {{ domain_name }} www.{{ domain_name }};
        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
-       
-       # X-Frame-Options
+       add_header Content-Security-Policy "default-src 'self' cdnjs.cloudflare.com; img-src 'self' cdnjs.cloudflare.com; www.gravatar.com" always;
+
        add_header X-Frame-Options "SAMEORIGIN" always;
+       
        add_header X-XSS-Protection "0" always;    
-    
+       
        add_header X-Content-Type-Options "nosniff" always;     
-       add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';" always;
-      
+       
+             
+       expires 1y;
+       add_header Cache-Control "public, no-transform";
+       
+       add_header Set-Cookie "Path=/; HttpOnly; Secure";
+       
        add_header Referrer-Policy "no-referrer-when-downgrade" always;      
+       
        add_header Feature-Policy "camera 'none'; microphone 'none'; geolocation 'none'" always;
+       
        add_header Permissions-Policy "camera=(), microphone=(), geolocation=() interest-cohort=()" always;
+       
        add_header X-Permitted-Cross-Domain-Policies "none" always;
        server_tokens off;
 
@@ -42,6 +51,7 @@ http {
 
        location / {
           proxy_pass http://app-hosts;
+          proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
        }
        
        location /metrics {
