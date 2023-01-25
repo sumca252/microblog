@@ -1,4 +1,9 @@
 ---
+- name: Copy sshd config
+  copy:
+      src: files/sshd_config
+      dest: /etc/ssh/sshd_config
+      
 - name: Disable root SSH access
   lineinfile:
       path: /etc/ssh/sshd_config
